@@ -44,12 +44,6 @@ def spam_detect_file(filename):
     result = msg_classifier.predict(X_test)
     return result
     
-
-def file_selector(folder_path='.'):
-    filenames = os.listdir(folder_path)
-    selected_filename = st.selectbox('Select a csv file containing messages', filenames)
-    return os.path.join(folder_path, selected_filename)
-
 def main():
     st.title("Spam Message Detection")
     html_temp = """
@@ -68,7 +62,7 @@ def main():
         else:
             st.success('The output is {} and it is spam'.format(result))
      
-    filename = file_selector()
+    filename = st.file_uploader("Upload CSV Files",type=['csv'])
     result=""
     if st.button("Predict for messages from the file"):
         result = spam_detect_file(filename)
